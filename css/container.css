@@ -1,0 +1,27 @@
+
+.main_cointainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 16fr 2fr;
+    height: 100vh;
+}
+
+.canvas_container {
+    display: grid;
+    overflow: hidden;
+    background-color:  #ebf5fb ;
+}
+
+.navigation_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    bottom: 100px;
+    background-color: #212f3c;
+}
+
+#canvas {
+    padding: 0;
+    margin:auto;
+    display: block;
+}

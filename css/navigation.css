@@ -1,0 +1,83 @@
+.navigation_bar {
+    border: none;
+    background-color: #212f3c;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 4;
+}
+
+.navigation_bar:hover {
+    color: #ebf5fb;
+    transform: scaleX(1.1);
+}
+
+
+.dropup {
+    position: relative;
+    display: inline-block;
+}
+
+.dropup__options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    bottom: 63px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.15);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    z-index: 1;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-sizing: border-box;
+}
+
+.dropup__options a, input, label {
+    display: block;
+    color: #2980b9;
+    text-decoration: none;
+    padding: 8px 12px;
+}
+
+.dropup__options a:hover {
+    background-color: #ebf5fb;
+}
+
+.dropup:hover .dropup__options {
+    display: block;
+}
+
+.solve {
+    color: white;
+    height: 100%;
+}
+
+.reset {
+    color: white;
+    height: 100%;
+}
+
+.play {
+    color: white;
+    height: 100%;
+}
+
+.difficulty {
+    color: white;
+    height: 100%;
+}
+
+
+input[type="range"] {
+    box-sizing: border-box;
+    margin: 0;
+    outline: none;
+    height: 10px;
+    width: 100%;
+    box-shadow: none;
+    background-color: #ebf5fb;
+    left: 0;
+    position: relative;
+    transition: all .5s ease;
+}
