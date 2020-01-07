@@ -172,37 +172,49 @@ class Game {
     }
 
     movePiece(click) {
-        let clickPosition = this.canvas.moveClickOnCanvasCoord(click, this.canvas);
+        let clickPosition = this.canvas.clickOnCanvasCoordinates(click);
         let piece = this.pieces[this.clickedPieceIndex];
         piece.move(clickPosition);
     }
 
-    createPieces() {
+
+    calculatePieceAspectRatioFit(){
         let actualWidth = this.image.width / this.columns;
         let actualHeight = this.image.height / this.rows;
         let maxWidth = this.canvas.canvas.width / this.columns;
         let maxHeight = this.canvas.canvas.height / this.rows;
 
-        let pieceRatio = calculateAspectRatioFit(actualWidth, actualHeight, maxWidth, maxHeight);
+        let redimensionRatio = Math.min(maxWidth / actualWidth, maxHeight / actualHeight);
+
+        return { width: actualWidth * redimensionRatio, height: actualHeight * redimensionRatio };
+    }
+
+
+
+
+    createPieces() {
+        
+
+       let pieceDimension = this.calculatePieceAspectRatioFit();
 
         for (let row = 0; row < this.rows; ++row) {
             for (let column = 0; column < this.columns; ++column) {
-                let randomLocation = this.computeRandomPieceLocation(pieceRatio);
-                let finalLocation = new AxisCoordinates(pieceRatio.width * column, pieceRatio.height * row);
 
-                let piece = new Piece(randomLocation, finalLocation, pieceRatio.width, pieceRatio.height, row, column);
+
+                let randomX = computeRandom(0, this.canvas.canvas.width - pieceDimension.width)
+                let randomY = computeRandom(0, this.canvas.canvas.height - pieceDimension.height)
+               
+                let randomLocation = new AxisCoordinates(randomX, randomY);
+                let finalLocation = new AxisCoordinates(pieceDimension.width * column, pieceDimension.height * row);
+
+                let piece = new Piece(randomLocation, finalLocation, pieceDimension.width, pieceDimension.height, row, column);
                 this.pieces.push(piece);
             }
         }
 
-        this.progressIncrement = 100 / this.pieces.length;
     }
 
-    computeRandomPieceLocation(pieceRatio) {
-        let x = computeRandom(0, this.canvas.canvas.width - pieceRatio.width);
-        let y = computeRandom(0, this.canvas.canvas.height - pieceRatio.height);
-
-        return new AxisCoordinates(x, y);
-    }
+   
+ 
 
 }

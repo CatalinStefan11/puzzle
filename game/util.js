@@ -44,10 +44,7 @@ function radius(piece){
     }
 }
 
-function calculateAspectRatioFit(actualWidth, actualHeight, maxWidth, maxHeight) {
-    let ratio = Math.min(maxWidth / actualWidth, maxHeight / actualHeight);
-    return { width: actualWidth * ratio, height: actualHeight * ratio };
-}
+
 
 
 class AxisCoordinates {

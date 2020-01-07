@@ -150,42 +150,20 @@ class Canvas {
         this.context.restore();
     }
 
-    moveClickOnCanvasCoord(event) {
-        let canvasCoordinates = this.getBoundingClientRect();
-    
-        let y = event.changedTouches[0].pageX - canvasCoordinates.top;
-        let x = event.changedTouches[0].pageY - canvasCoordinates.left;
-        
-        return new AxisCoordinates(x, y);    
-    }
-    
     clickOnCanvasCoordinates(event) {
-        let canvasCoordinates = this.getBoundingClientRect();
-    
-        let y = event.clientY - canvasCoordinates.top;
+        let canvasCoordinates = this.canvas.getBoundingClientRect();
+
         let x = event.clientX - canvasCoordinates.left;
-        
+        let y = event.clientY - canvasCoordinates.top;
+
+        if (typeof event.changedTouches !== 'undefined'){
+            x = event.changedTouches[0].pageX - canvasCoordinates.left;
+            y = event.changedTouches[0].pageY - canvasCoordinates.top;
+        }
         return new AxisCoordinates(x, y);    
     }
-
-   
-
-    getClickCoordinatesOnCanvas(click) {
-        let canvasBoundary = this.canvas.getBoundingClientRect();
-
-        let x = click.clientX - canvasBoundary.left;
-        let y = click.clientY - canvasBoundary.top;
-
-        if (typeof click.changedTouches !== 'undefined') {
-            x = click.changedTouches[0].pageX - canvasBoundary.left;
-            y = click.changedTouches[0].pageY - canvasBoundary.top;
-        }
-
-        return new AxisCoordinates(x, y);
-    }
-
-
-
+    
+    
 
     // https://stackoverflow.com/questions/3971841/how-to-resize-images-proportionally-keeping-the-aspect-ratio
     calculateCanvasRatioFit() {

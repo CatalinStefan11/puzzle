@@ -43,7 +43,7 @@ function onUpEventHandler() {
 }
 
 function onDownEventHandler(event) {
-    let clickPosition = clickOnCanvasCoordinates(event, game.canvas);
+    let clickPosition = game.canvas.clickOnCanvasCoordinates(event);
     game.determineClickedPiece(clickPosition);
 }
 
