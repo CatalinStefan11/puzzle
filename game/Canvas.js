@@ -4,117 +4,101 @@ class Canvas {
 
         this.canvas = document.getElementById('canvas');
         this.canvas.style.backgroundColor = 'white';
-
         this.context = this.canvas.getContext('2d');
 
         this.maxWidth = 1350;
         this.maxHeight = 680;
 
-      
-
-        this.setCanvasSize();
+        this.calculateCanvasRatioFit();
     }
 
-    drawPuzzlePieceConnector(piece, edge, arcDirection) {
-        let center = piece.getEdgeMiddlePoint(edge);
-        let radius = Math.min(piece.height, piece.width) / 4;
 
-        let startAngle = 0;
-        let endAngle = 0;
+    drawTopArc(piece) {
+        let coordinates = piece.topEdgeCoordinates();
+        let arcRadius = radius(piece);
 
-        if (edge === EdgeType.TOP) {
-            startAngle = Math.radians(180);
-            endAngle = Math.radians(0);
-        } else if (edge === EdgeType.RIGHT) {
-            startAngle = Math.radians(270);
-            endAngle = Math.radians(90);
-        } else if (edge === EdgeType.BOTTOM) {
-            startAngle = Math.radians(0);
-            endAngle = Math.radians(180);
-        } else if (edge == EdgeType.LEFT) {
-            startAngle = Math.radians(90);
-            endAngle = Math.radians(270);
-        }
-
-        this.context.arc(center.x, center.y, radius, startAngle, endAngle, arcDirection);
-    }
-
-    drawTopEdgeConnector(piece) {
-        let isPieceRowEven = isEven(piece.row);
-        let isPieceColumnEven = isEven(piece.column);
-
-        if (isPieceColumnEven) {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.TOP, true);
-            } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.TOP, false);
+     
+        if (isOdd(piece.column)) {
+            if (isOdd(piece.row)) {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI, 0, true);
+            }
+            else {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI, 0, false);
             }
         } else {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.TOP, false);
+            if (isOdd(piece.row)) {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI, 0, false);
             } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.TOP, true);
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI, 0, true);
             }
         }
 
     }
 
-    drawRightEdgeConnector(piece) {
-        let isPieceRowEven = isEven(piece.row);
-        let isPieceColumnEven = isEven(piece.column);
+    drawRightArc(piece) {
+        let coordinates = piece.rightEdgeCoordinates();
+        let arcRadius = radius(piece);
 
-        if (isPieceColumnEven) {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.RIGHT,false);
+    
+        if (isOdd(piece.column)) {
+            if (isOdd(piece.row)) {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 270, Math.PI / 180 * 90, false);
+            }
+            else {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 270, Math.PI / 180 * 90, true);
+            }
+        }
+        else {
+            if (isOdd(piece.row)) {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 270, Math.PI / 180 * 90, true);
+            }
+            else {
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 270, Math.PI / 180 * 90, false);
+            }
+        }
+    }
+
+    drawBottomArc(piece){
+        let coordinates = piece.bottomEdgeCoordinates();
+        let arcRadius = radius(piece);
+
+    
+        if(isOdd(piece.column)){
+            if(isOdd(piece.row)){
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, 0 , Math.PI, false);
             } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.RIGHT, true);
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, 0 , Math.PI, false);
             }
         } else {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.RIGHT, true);
+            if(isOdd(piece.row)){
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, 0 , Math.PI, false);
             } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.RIGHT, false);
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, 0 , Math.PI, true);
             }
         }
     }
 
-    drawBottomEdgeConnector(piece) {
-        let isPieceRowEven = isEven(piece.row);
-        let isPieceColumnEven = isEven(piece.column);
+    drawLeftArc(piece){
+        let coordinates = piece.leftEdgeCoordinates();
+        let arcRadius = radius(piece);
 
-        if (isPieceColumnEven) {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.BOTTOM, true);
+        if(isOdd(piece.column)){
+            if(isOdd(piece.row)){
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 90, Math.PI / 180 * 270 , false);
             } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.BOTTOM, false);
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 90, Math.PI / 180 * 270 , true);
             }
         } else {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.BOTTOM, false);
+            if(isOdd(piece.row)){
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 90, Math.PI / 180 * 270 , true);
             } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.BOTTOM, false);
+                this.context.arc(coordinates.x, coordinates.y, arcRadius, Math.PI / 180 * 90, Math.PI / 180 * 270 , false);
             }
         }
     }
 
-    drawLeftEdgeConnector(piece) {
-        let isPieceRowEven = isEven(piece.row);
-        let isPieceColumnEven = isEven(piece.column);
 
-        if (isPieceColumnEven) {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.LEFT, false);
-            } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.LEFT, true);
-            }
-        } else {
-            if (isPieceRowEven) {
-                this.drawPuzzlePieceConnector(piece, EdgeType.LEFT, true);
-            } else {
-                this.drawPuzzlePieceConnector(piece, EdgeType.LEFT, false);
-            }
-        }
-    }
+
 
     drawPuzzlePieceBoundary(piece, rows, columns) {
         this.context.beginPath();
@@ -122,25 +106,25 @@ class Canvas {
         this.context.moveTo(piece.currentLocation.x, piece.currentLocation.y);
 
         if (piece.row > 0) {
-            this.drawTopEdgeConnector(piece);
+            this.drawTopArc(piece);
         }
 
         this.context.lineTo(piece.currentLocation.x + piece.width, piece.currentLocation.y);
 
         if (piece.column < columns - 1) {
-            this.drawRightEdgeConnector(piece);
+            this.drawRightArc(piece);
         }
 
         this.context.lineTo(piece.currentLocation.x + piece.width, piece.currentLocation.y + piece.height);
 
         if (piece.row < rows - 1) {
-            this.drawBottomEdgeConnector(piece);
+            this.drawBottomArc(piece);
         }
 
         this.context.lineTo(piece.currentLocation.x, piece.currentLocation.y + piece.height);
 
         if (piece.column > 0) {
-            this.drawLeftEdgeConnector(piece);
+            this.drawLeftArc(piece);
         }
 
         this.context.lineTo(piece.currentLocation.x, piece.currentLocation.y);
@@ -158,14 +142,33 @@ class Canvas {
 
         this.context.clip();
 
-        let x = 0 - piece.finalLocation.x + piece.currentLocation.x;
-        let y = 0 - piece.finalLocation.y + piece.currentLocation.y;
+        let drawCoordinates = fitImageOnPieceCoordinates(piece)
 
-        this.context.drawImage(this.image, x, y, this.canvas.width, this.canvas.height);
+        this.context.drawImage(this.image, drawCoordinates.x, drawCoordinates.y, this.canvas.width, this.canvas.height);
 
         this.context.stroke();
         this.context.restore();
     }
+
+    moveClickOnCanvasCoord(event) {
+        let canvasCoordinates = this.getBoundingClientRect();
+    
+        let y = event.changedTouches[0].pageX - canvasCoordinates.top;
+        let x = event.changedTouches[0].pageY - canvasCoordinates.left;
+        
+        return new AxisCoordinates(x, y);    
+    }
+    
+    clickOnCanvasCoordinates(event) {
+        let canvasCoordinates = this.getBoundingClientRect();
+    
+        let y = event.clientY - canvasCoordinates.top;
+        let x = event.clientX - canvasCoordinates.left;
+        
+        return new AxisCoordinates(x, y);    
+    }
+
+   
 
     getClickCoordinatesOnCanvas(click) {
         let canvasBoundary = this.canvas.getBoundingClientRect();
@@ -181,18 +184,35 @@ class Canvas {
         return new AxisCoordinates(x, y);
     }
 
-    setCanvasSize() {
-        let aspectRatio = calculateAspectRatioFit(this.image.width, this.image.height, this.maxWidth, this.maxHeight);
-        this.canvas.width = aspectRatio.width;
-        this.canvas.height = aspectRatio.height;
+
+
+
+    // https://stackoverflow.com/questions/3971841/how-to-resize-images-proportionally-keeping-the-aspect-ratio
+    calculateCanvasRatioFit() {
+
+        let heightRatio = this.maxHeight / this.image.height;
+        let widthRatio = this.maxWidth / this.image.width;
+
+        if (heightRatio < widthRatio) {
+            this.canvas.height = this.image.height * heightRatio;
+            this.canvas.width = this.image.width * heightRatio;
+        }
+        else {
+            this.canvas.height = this.image.height * widthRatio;
+            this.canvas.width = this.image.width * widthRatio;
+        }
+
     }
 
-    drawHelperImageWithSolvedPuzzle() {
-        let ratio = calculateAspectRatioFit(this.image.width, this.image.height, this.maxWidth, this.maxHeight);
-        this.context.drawImage(this.image, 0, 0, ratio.width, ratio.height);
+    solvedPieceDrawer() {
+        this.context.drawImage(this.image, 0, 0, this.canvas.width, this.canvas.height);
     }
 
     clear() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 }
+
+
+
+

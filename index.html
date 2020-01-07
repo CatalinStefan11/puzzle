@@ -7,43 +7,44 @@
 
     <link rel="stylesheet" href="css/container.css">
     <link rel="stylesheet" href="css/navigation.css">
-    
+
 </head>
 
 <body>
 
-   
+
     <div class="main_cointainer">
+
 
         <main class="canvas_container">
             <canvas id="canvas"></canvas>
         </main>
 
         <nav class="navigation_container">
-           
+
 
             <div class="dropup">
                 <button class="navigation_bar play" type="button"><b>&#x2658;</b> Joaca</button>
                 <div class="dropup__options">
                     <label class="description" for="load__image"></b>Alege imagine</label>
                     <input id="load__image" class="bottom__border" type="file" accept="image/*">
-                    
+
                 </div>
             </div>
 
             <div class="dropup">
                 <button class="navigation_bar solve"><b>&#x2605;</b> Rezolva puzzle</button>
                 <div class="dropup__options">
-                  
-                     <a id="resolve_option" href="#"> Rezolva toate piesele</a> 
-                     <a id="random_piece" href="#"> Rezolva o piesa</a> 
+
+                    <a id="resolve_option" href="#"> Rezolva toate piesele</a>
+                    <a id="random_piece" href="#"> Rezolva o piesa</a>
                 </div>
             </div>
 
 
             <button id="reset" class="navigation_bar reset" type="button"><b>&#x21bb;</b> Reseteaza</button>
 
-          
+
             <div class="dropup">
                 <button class="navigation_bar difficulty" type="button"><b>&#x221e;</b> Dificultate</button>
                 <div class="dropup__options">
@@ -52,19 +53,18 @@
                 </div>
             </div>
 
-         
+
 
         </nav>
     </div>
 
 
     <script src="game/util.js"></script>
-    <script src="game/EdgeType.js"></script>
     <script src="game/Piece.js"></script>
     <script src="game/Canvas.js"></script>
     <script src="game/Game.js"></script>
     <script src="game/main.js"></script>
-   
+
 </body>
 
 </html>

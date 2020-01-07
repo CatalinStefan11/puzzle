@@ -80,7 +80,7 @@ class Game {
     }
 
     drawHelperImageWithSolvedPuzzle() {
-        this.canvas.drawHelperImageWithSolvedPuzzle();
+        this.canvas.solvedPieceDrawer();
     }
 
     hidePuzzlePieces() {
@@ -172,7 +172,7 @@ class Game {
     }
 
     movePiece(click) {
-        let clickPosition = this.canvas.getClickCoordinatesOnCanvas(click);
+        let clickPosition = this.canvas.moveClickOnCanvasCoord(click, this.canvas);
         let piece = this.pieces[this.clickedPieceIndex];
         piece.move(clickPosition);
     }

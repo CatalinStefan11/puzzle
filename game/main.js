@@ -1,15 +1,10 @@
-/* 
-puzzle games: 
-http://www.raymondhill.net/puzzle-rhill/jigsawpuzzle-rhill.php
-https://shout.setfive.com/2015/04/23/javascript-building-a-html5-canvas-puzzle/
-*/
 
-let game;
 
 
 
 
-// TODO: move in navigation.js
+let game;
+
 const loadImage = document.getElementById('load__image');
 loadImage.addEventListener('input', loadImageEventHandler);
 
@@ -17,8 +12,6 @@ loadImage.addEventListener('input', loadImageEventHandler);
 
 
 const difficulty = document.getElementById('difficulty_slider');
-
-
 
 function loadImageEventHandler() {
   
@@ -37,14 +30,12 @@ function drawImageFromSrcOnCanvas(imageSrc) {
 
     image.addEventListener("load", function () {
         
-            // let difficulty = new Difficulty(pieceNumber.value, pieceShape.value);
-            game = new Game(image, difficulty.value);
        
-
-     
-
-        game.initializeGame();
+            game = new Game(image, difficulty.value);
+            game.initializeGame();
+      
     });
+   
 }
 
 function onUpEventHandler() {
@@ -52,7 +43,7 @@ function onUpEventHandler() {
 }
 
 function onDownEventHandler(event) {
-    let clickPosition = game.canvas.getClickCoordinatesOnCanvas(event);
+    let clickPosition = clickOnCanvasCoordinates(event, game.canvas);
     game.determineClickedPiece(clickPosition);
 }
 

@@ -11,19 +11,24 @@ class Piece {
         this.solved = false;
     }
 
-    getEdgeMiddlePoint(edge) {
-        if (edge === EdgeType.TOP) {
-            return new AxisCoordinates(this.currentLocation.x + (this.width / 2), this.currentLocation.y);
-        } else if (edge === EdgeType.RIGHT) {
-            return new AxisCoordinates(this.currentLocation.x + this.width, this.currentLocation.y + (this.height / 2));
-        } else if (edge === EdgeType.BOTTOM) {
-            return new AxisCoordinates(this.currentLocation.x + (this.width / 2), this.currentLocation.y + this.height);
-        } else if (edge === EdgeType.LEFT) {
-            return new AxisCoordinates(this.currentLocation.x, this.currentLocation.y + (this.height / 2));
-        } else {
-            throw "Edge not defined: " + edge;
-        }
+    topEdgeCoordinates(){
+        return new AxisCoordinates(this.currentLocation.x + (this.width / 2), this.currentLocation.y);
     }
+    
+    rightEdgeCoordinates(){
+        return new AxisCoordinates(this.currentLocation.x + this.width, this.currentLocation.y + (this.height / 2));
+    }
+
+
+    bottomEdgeCoordinates(){
+        return new AxisCoordinates(this.currentLocation.x + (this.width / 2), this.currentLocation.y + this.height);
+    }
+
+    leftEdgeCoordinates(){
+        return new AxisCoordinates(this.currentLocation.x, this.currentLocation.y + (this.height / 2));
+    }
+
+
 
     isClicked(click) {
         if (this.isSolved()) {
